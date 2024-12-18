@@ -20,8 +20,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Invoker invoker;
 
 	// コマンドの作成
-	MoveCommand moveRightCommand(&receiver, 1); // 右方向
-	MoveCommand moveLeftCommand(&receiver, -1); // 左方向
+	MoveCommand moveRightCommand(&receiver, 1, 0); // 右方向
+	MoveCommand moveLeftCommand(&receiver, -1, 0); // 左方向
+	MoveCommand moveUpCommand(&receiver,0, -1);	   // 上方向
+	MoveCommand moveDownCommand(&receiver,0, 1);   // 下方向
 
 	// 初期シーンをタイトルシーンに設定
 	//SceneManager::Initialize(new TitleScene());
@@ -42,6 +44,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		//SceneManager::Update(inputManager);
 
 		// 入力に応じてコマンドを実行
+
+		// 上に移動
+		if (inputManager.IsKeyPressed(DIK_UP))
+		{
+			invoker.ExecuteCommand(&moveUpCommand);
+		}
+
+		// 下に移動
+		if (inputManager.IsKeyPressed(DIK_DOWN))
+		{
+			invoker.ExecuteCommand(&moveDownCommand);
+		}
 
 		// 右に移動
 		if (inputManager.IsKeyPressed(DIK_RIGHT))
