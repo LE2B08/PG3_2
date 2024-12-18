@@ -1,7 +1,11 @@
 #include <Novice.h>
 #include "SceneManager.h"
-#include "InputManager.h"
 #include "TitleScene.h"
+#include "InputManager.h"
+
+#include "Receiver.h"
+#include "MoveCommand.h"
+#include "Invoker.h"
 
 const char kWindowTitle[] = "学籍番号";
 
@@ -12,9 +16,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Novice::Initialize(kWindowTitle, 1280, 720);
 
 	InputManager inputManager;
+	Receiver receiver;
+	Invoker invoker;
+
+	// コマンドの作成
+	MoveCommand moveRightCommand(&receiver, 1); // 右方向
+	MoveCommand moveLeftCommand(&receiver, -1); // 左方向
 
 	// 初期シーンをタイトルシーンに設定
-	SceneManager::Initialize(new TitleScene());
+	//SceneManager::Initialize(new TitleScene());
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
@@ -29,7 +39,27 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		inputManager.Update();
 
 		// シーンの更新処理
-		SceneManager::Update(inputManager);
+		//SceneManager::Update(inputManager);
+
+		// 入力に応じてコマンドを実行
+
+		// 右に移動
+		if (inputManager.IsKeyPressed(DIK_RIGHT))
+		{
+			invoker.ExecuteCommand(&moveRightCommand);
+		}
+
+		// 左に移動
+		if (inputManager.IsKeyPressed(DIK_LEFT))
+		{
+			invoker.ExecuteCommand(&moveLeftCommand);
+		}
+
+		// Ctrl + ZでUndo
+		if (inputManager.IsKeyDown(DIK_LCONTROL) && inputManager.IsKeyPressed(DIK_Z))
+		{
+			invoker.UndoLastCommand();
+		}
 
 		///
 		/// ↑更新処理ここまで
@@ -40,7 +70,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 
 		// シーンの描画処理
-		SceneManager::Draw();
+		//SceneManager::Draw();
+
+		// オブジェクトの描画
+		receiver.Draw();
 
 		///
 		/// ↑描画処理ここまで
@@ -56,7 +89,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	}
 
 	// ライブラリの終了
-	SceneManager::Finalize();
+	//SceneManager::Finalize();
 	Novice::Finalize();
 	return 0;
 }

@@ -110,8 +110,12 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\Adapter\Novice.cpp" />
     <ClCompile Include="ClearScene.cpp" />
+    <ClCompile Include="Command.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Invoker.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MoveCommand.cpp" />
+    <ClCompile Include="Receiver.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="StageScene.cpp" />
     <ClCompile Include="State.cpp" />
@@ -146,7 +150,11 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClInclude Include="C:\KamataEngine\DirectXGame\scene\GameScene.h" />
     <ClInclude Include="C:\KamataEngine\Adapter\Novice.h" />
     <ClInclude Include="ClearScene.h" />
+    <ClInclude Include="Command.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Invoker.h" />
+    <ClInclude Include="MoveCommand.h" />
+    <ClInclude Include="Receiver.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="StageScene.h" />
     <ClInclude Include="State.h" />
